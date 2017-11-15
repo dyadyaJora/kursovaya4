@@ -1,0 +1,47 @@
+<ion-header>
+
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Главная</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <div>Заказ такси</div>
+    <div class="order-loc">
+        <ion-card class="order-loc__item">
+            <ion-card-header class="order-loc__item-head">
+                <ion-icon name="md-locate" class="order-loc__icon order-loc__from-icon"></ion-icon>
+                <span class="order-loc__item-head-text">Откуда</span>
+                <div class="order-loc__actions">
+                    <ion-icon name="md-create" class="order-loc__actions-edit"></ion-icon>
+                    <ion-icon name="md-close" class="order-loc__actions-close order-loc__actions-close_disabled"></ion-icon>
+                </div>
+            </ion-card-header>
+            <ion-card-content *ngIf=formAddress>{{ fromAddress }}</ion-card-content>
+        </ion-card>
+        <ion-card *ngFor="let point of roadAddresses;let i=index; " class="order-loc__item">
+            <ion-card-header  class="order-loc__item-head">
+                <ion-icon name="md-pin" class="order-loc__icon order-loc__to-icon"></ion-icon>
+                <span class="order-loc__item-head-text">Куда</span>
+                <div class="order-loc__actions">
+                    <ion-icon name="md-create" class="order-loc__actions-edit"></ion-icon>
+                    <ion-icon name="md-close" class="order-loc__actions-close" [ngClass]="{'order-loc__actions-close_disabled': roadAddresses.length==1}" (click)=deletePoint(i)></ion-icon>
+                </div>
+            </ion-card-header>
+            <ion-card-content *ngIf="point">{{ point }}</ion-card-content>
+        </ion-card>
+        <ion-card class="order-loc__item order-loc__add-point" (click)=addPoint()>
+            <ion-item>
+                <ion-icon name="md-add-circle" class="order-loc__icon order-loc__add-icon"></ion-icon>
+                <span>Добавить точку</span>
+            </ion-item>
+        </ion-card>
+    </div>
+
+</ion-content>

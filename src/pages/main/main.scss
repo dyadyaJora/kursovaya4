@@ -1,0 +1,58 @@
+page-main {
+	.order-loc__from-icon {
+		flex-grow: 1;
+		color: #ff9800;
+	}
+
+	.order-loc__to-icon{
+		flex-grow: 1;
+		color: #ffc107
+	}
+
+	.order-loc__icon {
+		width: 16px;
+		margin-right: 5px;
+	}
+
+	.order-loc__add-point {
+		border: 1px dashed #000;
+	}
+
+	.order-loc__add-icon {
+		color: #9E9E9E;
+	}
+
+	.order-loc__item {
+		cursor: pointer;
+	}
+
+	.order-loc__item-head {
+		display: flex;
+		flex-grow: 10;
+	}
+
+	.order-loc__actions {
+		flex-grow: 1;
+		text-align: right;
+	}
+
+	.order-loc__item-head-text {
+		flex-grow: 8;
+	}
+
+	.order-loc__actions-edit {
+		margin-right: 5px;
+	}
+
+	.order-loc__actions-close {
+		cursor: default;
+	}
+
+	.order-loc__actions-close_disabled {
+		color: #d0d0d0;
+	}
+
+	.red {
+		color: red;
+	}
+}
