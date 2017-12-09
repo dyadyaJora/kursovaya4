@@ -27,8 +27,12 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
 import { SupportPage } from '../pages/support/support';
 import { MainPage } from '../pages/main/main';
 
+
+import { MyMapPage } from '../pages/my-map/my-map';
+
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
+import { OrderDataServiceProvider } from '../providers/order-data-service/order-data-service';
 
 
 @NgModule({
@@ -48,7 +52,8 @@ import { UserData } from '../providers/user-data';
     TabsPage,
     TutorialPage,
     SupportPage,
-    MainPage
+    MainPage,
+    MyMapPage
   ],
   imports: [
     BrowserModule,
@@ -90,14 +95,16 @@ import { UserData } from '../providers/user-data';
     TabsPage,
     TutorialPage,
     SupportPage,
-    MainPage
+    MainPage,
+    MyMapPage 
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     ConferenceData,
     UserData,
     InAppBrowser,
-    SplashScreen
+    SplashScreen,
+    OrderDataServiceProvider
   ]
 })
 export class AppModule { }

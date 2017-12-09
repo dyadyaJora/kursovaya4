@@ -1,0 +1,46 @@
+$markerHeight: 30px;
+$markerWidth: 30px;
+
+page-my-map {
+	#my-map {
+		left: 0;
+	    right: 0;
+	    top: 0;
+	    bottom: 0;
+	    position: absolute;
+	    height: 100%;
+	    width: 100%;
+	}
+
+	#marker {
+		position: absolute;
+		top: calc(50%  - #{$markerHeight});
+		left: calc(50% - (#{$markerWidth} / 2));
+		width: $markerWidth;
+		height: $markerHeight;
+	    font-size: $markerHeight;
+	    color: #488aff;
+	}
+
+	.customControl {
+        background-color: #fff;
+        padding: 10px;
+        padding-bottom: 50px;
+        border-radius: 3px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    .customControl__loc {
+    	font-weight: bold;
+    }
+
+    .customControl__btn {
+	    background: #488aff;
+	    color: white;
+	    border-radius: 2px;
+	    position: absolute;
+	    bottom: 50px;
+	    margin: 0 10px;
+	    padding: 10px;
+    }
+}

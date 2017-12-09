@@ -44,15 +44,48 @@ page-main {
 		margin-right: 5px;
 	}
 
-	.order-loc__actions-close {
-		cursor: default;
-	}
-
 	.order-loc__actions-close_disabled {
 		color: #d0d0d0;
+		cursor: default;
+	}
+	
+	.showmap-wrapper {
+		margin: 10px;
+		min-height: 45px;
 	}
 
-	.red {
-		color: red;
+	.showmap-btn {
+		text-transform: none;
+		font-weight: 600;
+
+		ion-icon {
+			margin-left: 5px;
+		}
+	}
+
+	.order-opt {
+
+		.segment-md .segment-button {
+			background: #793f0c;
+		}
+
+		.segment-md .segment-button.activated, .segment-md .segment-button.segment-activated {
+			border-color: #17ff00;
+		}
+	}
+
+	.order-opt__body.card-md {
+		margin: 0;
+		width: 100%
+	}
+
+	.order-opt__body .list-md .item-block .item-inner {
+		border-bottom: 1px solid #dedede;
+	}
+
+	.order-loc__lat-lon {
+		font-weight: bold;
+		color: #00f;
+		display: inline-block;
 	}
 }

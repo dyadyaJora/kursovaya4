@@ -10,11 +10,11 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
 
     <div>Заказ такси</div>
     <div class="order-loc">
-        <ion-card class="order-loc__item">
+        <ion-card class="order-loc__item" (click)=openFromMap()> 
             <ion-card-header class="order-loc__item-head">
                 <ion-icon name="md-locate" class="order-loc__icon order-loc__from-icon"></ion-icon>
                 <span class="order-loc__item-head-text">Откуда</span>
@@ -23,18 +23,18 @@
                     <ion-icon name="md-close" class="order-loc__actions-close order-loc__actions-close_disabled"></ion-icon>
                 </div>
             </ion-card-header>
-            <ion-card-content *ngIf=formAddress>{{ fromAddress }}</ion-card-content>
+            <ion-card-content *ngIf=orderData.fromAddress>{{ orderData.fromAddress }} <div class="order-loc__lat-lon">lat:&nbsp;{{orderData.fromLoc.lat}},&nbsp;lon:&nbsp;{{ orderData.fromLoc.lon }}</div></ion-card-content>
         </ion-card>
-        <ion-card *ngFor="let point of roadAddresses;let i=index; " class="order-loc__item">
+        <ion-card *ngFor="let point of orderData.roadAddresses;let i=index; " class="order-loc__item" (click)=openToMap($event,i)>
             <ion-card-header  class="order-loc__item-head">
                 <ion-icon name="md-pin" class="order-loc__icon order-loc__to-icon"></ion-icon>
                 <span class="order-loc__item-head-text">Куда</span>
                 <div class="order-loc__actions">
                     <ion-icon name="md-create" class="order-loc__actions-edit"></ion-icon>
-                    <ion-icon name="md-close" class="order-loc__actions-close" [ngClass]="{'order-loc__actions-close_disabled': roadAddresses.length==1}" (click)=deletePoint(i)></ion-icon>
-                </div>
+                    <ion-icon name="md-close" class="order-loc__actions-close" [ngClass]="{'order-loc__actions-close_disabled': orderData.roadAddresses.length==1}" (click)=deletePoint(i)></ion-icon>
+                </div> 
             </ion-card-header>
-            <ion-card-content *ngIf="point">{{ point }}</ion-card-content>
+            <ion-card-content *ngIf="point.addr">{{ point.addr }} <div class="order-loc__lat-lon">lat:&nbsp;{{point.lat}},&nbsp;lon:&nbsp;{{ point.lon }}</div></ion-card-content>
         </ion-card>
         <ion-card class="order-loc__item order-loc__add-point" (click)=addPoint()>
             <ion-item>
@@ -43,5 +43,66 @@
             </ion-item>
         </ion-card>
     </div>
+        <div class="showmap-wrapper">
+        <button ion-button round color="light"  class="showmap-btn">Посмотреть на карте<ion-icon name="md-arrow-dropright"></ion-icon></button>
+    </div>
+
+
+    <div class="order-opt">
+        <ion-segment [(ngModel)]="pet">
+            <ion-segment-button value="datatime">
+            Время подачи
+            </ion-segment-button>
+            <ion-segment-button value="tarif">
+                Тариф
+            </ion-segment-button>
+            <ion-segment-button value="money">
+                Тип оплаты
+            </ion-segment-button>
+        </ion-segment>
+    </div>
+
+    <ion-card [ngSwitch]="pet" class="order-opt__body">
+        <ion-list *ngSwitchCase="'datatime'">
+            <ion-item>
+                <ion-icon name="md-time" item-start></ion-icon>
+                <ion-label>Сейчас</ion-label>
+                <ion-toggle checked="true"></ion-toggle>
+            </ion-item>
+            <ion-item>
+                <ion-icon name="md-calendar" item-start></ion-icon>
+                <ion-label>Время</ion-label>
+                <ion-datetime displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="orderDate"></ion-datetime>
+            </ion-item>
+        </ion-list>
+
+        <ion-list radio-group [(ngModel)]="choosenTarif" *ngSwitchCase="'tarif'">
+            <ion-list-header>
+                Выберите тариф (i)
+            </ion-list-header>
+
+            <ion-item *ngFor= "let tarif of tarifs;let i=index;" >
+                <ion-label>{{ tarif.name }}, {{ tarif.price }} р/км</ion-label>
+                <ion-radio value="{{i}}"></ion-radio>
+            </ion-item>
+
+        </ion-list>
+
+        <ion-list radio-group [(ngModel)]="choosenMoneyType" *ngSwitchCase="'money'">
+            <ion-list-header>
+                Выберите тип оплаты (i)
+            </ion-list-header>
+
+            <ion-item>
+                <ion-label>Наличные</ion-label>
+                <ion-radio value="nal"></ion-radio>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Карточкой(безнал)</ion-label>
+                <ion-radio value="beznal"></ion-radio>
+            </ion-item>
+        </ion-list>
+    </ion-card>
 
 </ion-content>
