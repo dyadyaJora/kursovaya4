@@ -26,6 +26,7 @@ import { TabsPage } from '../pages/tabs-page/tabs-page';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { SupportPage } from '../pages/support/support';
 import { MainPage } from '../pages/main/main';
+import { ShowRoutePage } from '../pages/show-route/show-route';
 
 
 import { MyMapPage } from '../pages/my-map/my-map';
@@ -53,7 +54,8 @@ import { OrderDataServiceProvider } from '../providers/order-data-service/order-
     TutorialPage,
     SupportPage,
     MainPage,
-    MyMapPage
+    MyMapPage,
+    ShowRoutePage
   ],
   imports: [
     BrowserModule,
@@ -96,7 +98,8 @@ import { OrderDataServiceProvider } from '../providers/order-data-service/order-
     TutorialPage,
     SupportPage,
     MainPage,
-    MyMapPage 
+    MyMapPage,
+    ShowRoutePage
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

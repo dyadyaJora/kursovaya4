@@ -1,5 +1,5 @@
 import { Component, } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, Events, AlertController } from 'ionic-angular';
 import { OrderDataServiceProvider } from '../../providers/order-data-service/order-data-service';
 import * as $ from'jquery';
 
@@ -15,22 +15,29 @@ export class MyMapPage {
 	loc: any;
 	address: string;
 	header: string = '';
+	myMap: any;
  
-  constructor(public navCtrl: NavController, public navParams: NavParams, public orderData: OrderDataServiceProvider, public toast: ToastController) {
+  constructor(
+  	public navCtrl: NavController,
+  	public navParams: NavParams,
+  	public orderData: OrderDataServiceProvider,
+  	public toast: ToastController,
+  	public events: Events,
+  	public alertCtrl: AlertController) {
   	
   	ymaps.ready(init);
   	var _this = this;
   	this.header = this.navParams.data.point ? 'Куда ' + this.navParams.data.point : 'Откуда';
 
     function init(){ 
-	  	var myMap, element, dragger, draggerEventsGroup; 
+	  	var element, dragger, draggerEventsGroup; 
 	  	var CustomControlClass = function (options) {
             CustomControlClass.superclass.constructor.call(this, options);
             this._$content = null;
             this._geocoderDeferred = null;
         };
 
-        myMap = new ymaps.Map('my-map', {
+        _this.myMap = new ymaps.Map('my-map', {
             center: [_this.navParams.data.lat, _this.navParams.data.lon],
             zoom: 9
         });
@@ -87,8 +94,8 @@ export class MyMapPage {
 	                geoObjectData = (members && members.length) ? members[0].GeoObject : null;
 	            if (geoObjectData) {
 	            	_this.loc = {
-	            		lat: +myMap.getCenter()[0].toFixed(6),
-	            		lon: +myMap.getCenter()[1].toFixed(6)
+	            		lat: +_this.myMap.getCenter()[0].toFixed(6),
+	            		lon: +_this.myMap.getCenter()[1].toFixed(6)
 	            	};
 	            	//geoObjectData.Point.pos.split(' ')[1]
 	            	_this.address = geoObjectData.metaDataProperty.GeocoderMetaData.Address.formatted;
@@ -99,7 +106,7 @@ export class MyMapPage {
 	    });
 
 	    var customControl = new CustomControlClass();
-	    myMap.controls.add(customControl, {
+	    _this.myMap.controls.add(customControl, {
 	        float: 'none',
 	        position: {
 	            bottom: 40,
@@ -122,12 +129,23 @@ export class MyMapPage {
 
 	  	t.present();
   	} else {
+  		if (!this.orderData.isCrimea(this.loc.lat, this.loc.lon, this.address)) {
+  			let alertErrCrimea = this.alertCtrl.create({
+			    title: 'Ошибка!',
+			    message: 'Можно выбирать точки только на территории Крыма! Для поездок на материк или морских прогулок - обращайтесь к менеджерам.',
+			    buttons: ['ОК']
+			});
+			alertErrCrimea.present();
+  			return;
+  		}
 	  	if (!this.navParams.data.point)
 	  		this.orderData.setFrom(this.loc, this.address);
 	  	else
 	  		this.orderData.setTo(this.loc, this.address, this.navParams.data.point);
 
+	  	this.events.publish('route:change');
   	}
+
   	this.navCtrl.pop();
   }
 
