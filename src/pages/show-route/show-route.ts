@@ -26,6 +26,7 @@ export class ShowRoutePage {
         });
 
   		let DistanceControlClass = function (options) {
+            // @ts-ignore
             DistanceControlClass.superclass.constructor.call(this, options);
             this._$content = null;
             this._geocoderDeferred = null;
@@ -33,6 +34,7 @@ export class ShowRoutePage {
 
         ymaps.util.augment(DistanceControlClass, ymaps.collection.Item, {
 	        onAddToMap: function (map) {
+	        	// @ts-ignore
 	            DistanceControlClass.superclass.onAddToMap.call(this, map);
 	            this._lastCenter = null;
 	            this.getParent().getChildElement(this).then(this._onGetChildElement, this);
@@ -44,6 +46,7 @@ export class ShowRoutePage {
 	                this._$content.remove();
 	                this._mapEventGroup.removeAll();
 	            }
+	            // @ts-ignore
 	            DistanceControlClass.superclass.onRemoveFromMap.call(this, oldMap);
 	        },
 
@@ -73,7 +76,7 @@ export class ShowRoutePage {
 	        }
 	    });
 
-	    let distanceControl = new DistanceControlClass();
+	    let distanceControl = new DistanceControlClass({});
 	    _this.myMap.controls.add(distanceControl, {
 	        float: 'none',
 	        position: {
