@@ -45,4 +45,13 @@ export class OrderDataServiceProvider {
   		return _this.isCrimea(item.lat, item.lon, item.addr);
   	});
   }
+
+  clearAll() {
+  	this.fromLoc = {};
+  	this.fromAddress = '';
+  	this.roadAddresses = [{addr: ''}];
+  	this.yandexRoute = undefined;
+  	this.distance = undefined;
+
+  }
 }

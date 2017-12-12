@@ -32,9 +32,10 @@ export class MyMapPage {
     function init(){ 
 	  	var element, dragger, draggerEventsGroup; 
 	  	var CustomControlClass = function (options) {
+	  		// @ts-ignore
             CustomControlClass.superclass.constructor.call(this, options);
             this._$content = null;
-            this._geocoderDeferred = null;
+            this._geocoderDeferred = null; 
         };
 
         _this.myMap = new ymaps.Map('my-map', {
@@ -49,6 +50,7 @@ export class MyMapPage {
         
 	    ymaps.util.augment(CustomControlClass, ymaps.collection.Item, {
 	        onAddToMap: function (map) {
+	        	// @ts-ignore
 	            CustomControlClass.superclass.onAddToMap.call(this, map);
 	            this._lastCenter = null;
 	            this.getParent().getChildElement(this).then(this._onGetChildElement, this);
@@ -60,6 +62,7 @@ export class MyMapPage {
 	                this._$content.remove();
 	                this._mapEventGroup.removeAll();
 	            }
+	            // @ts-ignore
 	            CustomControlClass.superclass.onRemoveFromMap.call(this, oldMap);
 	        }, 
 
@@ -105,7 +108,7 @@ export class MyMapPage {
 	        }
 	    });
 
-	    var customControl = new CustomControlClass();
+	    var customControl = new CustomControlClass({});
 	    _this.myMap.controls.add(customControl, {
 	        float: 'none',
 	        position: {

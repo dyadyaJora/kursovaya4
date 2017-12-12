@@ -50,7 +50,7 @@ export class MainPage {
 
     let _this = this;
   	this.pet = "datatime";
-    this.orderData = orderData1;
+    this.orderData = this.orderData1;
     this.orderData.fromLoc = {};
     this.orderData.roadAddresses = [{ addr: ""}];
   	this.choosenTarif = this.tarifs.indexOf(this.tarifs.find((item) => { 
@@ -94,7 +94,10 @@ export class MainPage {
   	}
   }
 
-  openFromMap() {
+  openFromMap(e: any) {
+    if (e.toElement.className.indexOf('order-loc__actions-close') !== -1 || e.toElement.className.indexOf('order-loc__actions-clear') !== -1)
+      return; 
+
     this.navCtrl.push(MyMapPage, {
       point: 0,
       lat: this.orderData.fromLoc.lat || 44.952093,
@@ -103,7 +106,7 @@ export class MainPage {
   }
 
   openToMap(e:any, ind: number) {
-    if (e.toElement.className.indexOf('order-loc__actions-close') !== -1)
+    if (e.toElement.className.indexOf('order-loc__actions-close') !== -1 || e.toElement.className.indexOf('order-loc__actions-clear') !== -1)
       return; 
     console.log(ind);
     this.navCtrl.push(MyMapPage, {
@@ -155,6 +158,22 @@ export class MainPage {
 
   showRoute() {
     this.navCtrl.push(ShowRoutePage);
+  }
+
+  clearAll() {
+    this.orderData.clearAll();
+    this.events.publish('route:change');
+  }
+
+  clearFrom() {
+    this.orderData.fromAddress = '';
+    this.orderData.fromLoc = undefined;
+    this.events.publish('route:change');
+  }
+
+  clearTo(i: number) {
+    this.orderData.roadAddresses[i] = { addr: '' };
+    this.events.publish('route:change');
   }
 
 }
