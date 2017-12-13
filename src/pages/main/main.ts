@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events, ToastController } from 'ionic-angular';
+
 import { MyMapPage } from '../my-map/my-map';
 import { ShowRoutePage } from  '../show-route/show-route';
 import { OrderDataServiceProvider } from '../../providers/order-data-service/order-data-service';
+import * as $ from 'jquery';
 
 declare var ymaps: any;
 
@@ -16,6 +18,8 @@ export class MainPage {
   toLoc: any;
   orderData: any;
   orderDate: String = new Date().toISOString();
+  price: string = '';
+  distance: string = '';
   choosenTarif: number;
   choosenMoneyType: String = "nal";
   tarifs: Array<any> = [
@@ -51,8 +55,7 @@ export class MainPage {
     let _this = this;
   	this.pet = "datatime";
     this.orderData = this.orderData1;
-    this.orderData.fromLoc = {};
-    this.orderData.roadAddresses = [{ addr: ""}];
+    this.orderData.clearAll();
   	this.choosenTarif = this.tarifs.indexOf(this.tarifs.find((item) => { 
   		return item.name == "Эконом"
   	}));
@@ -60,11 +63,17 @@ export class MainPage {
     this.events.subscribe('route:change', () => {
       _this.orderData.distance = undefined;
       _this.orderData.yandexRoute = undefined;
+      _this.orderData.price = 0;
       _this.calcRoute();
     });
 
     this.events.subscribe('route:loading', () => {
       // установить в интерфейсе режим загрузки во время расчета маршрута
+    });
+
+    this.events.subscribe('route:way', () => {
+      //_this.price = _this.orderData.price;
+      //_this.test();
     });
 
     this.events.subscribe('route:error', message => {
@@ -117,12 +126,10 @@ export class MainPage {
   }
 
   test() {
-    console.log('test');
+    console.log('test'); 
   }
 
   calcRoute() {
-    let _this = this;
-
     if (this.orderData.isFullRoute()) {
       let points : Array<any> = [],
         router;
@@ -139,20 +146,26 @@ export class MainPage {
         routingMode: 'auto',
         multiRoute: true
       });
+
       router
         .then( route => {
         // Добавление маршрута на карту
         console.log(route, 'hfdhjh');
         //_this.myMap.geoObjects.add(route);
-        _this.events.publish('route:way', route);
-        _this.orderData.distance = route.getActiveRoute().properties._data.distance.value;
-        _this.orderData.yandexRoute = route;
-
+        this.orderData.distance = route.getActiveRoute().properties._data.distance.value;
+        this.orderData.yandexRoute = route;
+        this.orderData.price = Math.round(this.orderData.distance/1000 * this.tarifs[this.choosenTarif].price);
+        this.events.publish('route:way', route);
+        // ANGULAR ISSUE: no binding in async 
+        $('.hide-help-button').click(); // == helpUpdateData()
       })
       .catch( err => {
         console.log(err, 'error');
-        _this.events.publish('route:error', err.message);
+        this.events.publish('route:error', err.message);
+        $('.hide-help-button').click(); // == helpUpdateData()
       });
+    } else {
+      this.helpUpdateData();
     }
   }
 
@@ -167,7 +180,7 @@ export class MainPage {
 
   clearFrom() {
     this.orderData.fromAddress = '';
-    this.orderData.fromLoc = undefined;
+    this.orderData.fromLoc = {};
     this.events.publish('route:change');
   }
 
@@ -176,4 +189,9 @@ export class MainPage {
     this.events.publish('route:change');
   }
 
+  helpUpdateData() {
+    this.price = this.orderData.price? this.orderData.price + ' р.' : '     ';
+    this.distance = this.orderData.distance? (this.orderData.distance/1000).toFixed(2) + ' км' : '';
+    console.log(this.price);
+  }
 }

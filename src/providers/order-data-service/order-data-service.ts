@@ -5,6 +5,7 @@ export class OrderDataServiceProvider {
   roadAddresses:  Array<any> = [];
   yandexRoute: any;
   distance: number;
+  price: number;
 
 
   readonly crimeaNord = 46.240364;
@@ -52,6 +53,6 @@ export class OrderDataServiceProvider {
   	this.roadAddresses = [{addr: ''}];
   	this.yandexRoute = undefined;
   	this.distance = undefined;
-
+  	this.price = undefined;
   }
 }

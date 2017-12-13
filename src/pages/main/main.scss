@@ -57,9 +57,21 @@ page-main {
 	.showmap-btn {
 		text-transform: none;
 		font-weight: 600;
+		
+	    height: auto;
+	    padding-top: 10px;
+	    padding-bottom: 10px;
 
 		ion-icon {
 			margin-left: 5px;
+		}
+
+		.showmap-btn__distance {
+			display: block;
+		}
+
+		.button-inner {
+			display: block;
 		}
 	}
 
@@ -87,5 +99,13 @@ page-main {
 		font-weight: bold;
 		color: #00f;
 		display: inline-block;
+	}
+
+	.hide-help-button {
+		display: none;
+	}
+
+	.order-btn__price {
+	    text-transform: none;
 	}
 }

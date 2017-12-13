@@ -49,7 +49,10 @@
         </ion-card>
     </div>
         <div class="showmap-wrapper">
-        <button ion-button round color="light"  class="showmap-btn" (click)=showRoute()>Посмотреть на карте<ion-icon name="md-arrow-dropright"></ion-icon></button>
+        <button ion-button round color="light"  class="showmap-btn" (click)=showRoute()>
+            Посмотреть на карте <ion-icon name="md-arrow-dropright"></ion-icon> 
+            <div class="showmap-btn__distance" *ngIf="distance">{{distance}}</div>
+        </button>
     </div>
 
 
@@ -109,5 +112,11 @@
             </ion-item>
         </ion-list>
     </ion-card>
+
+    <button class="order-btn" ion-button icon-left color="secondary">
+      <ion-icon name="home"></ion-icon>
+      Заказать&nbsp;<div class="order-btn__price">{{price}}</div>
+    </button>
+    <button ion-button class="hide-help-button" (click)=helpUpdateData()>test</button>
 
 </ion-content>
