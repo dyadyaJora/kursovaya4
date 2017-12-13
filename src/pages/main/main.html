@@ -80,7 +80,7 @@
             <ion-item>
                 <ion-icon name="md-calendar" item-start></ion-icon>
                 <ion-label>Время</ion-label>
-                <ion-datetime displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="orderDate"></ion-datetime>
+                <ion-datetime displayFormat="MMM DD, YYYY HH:mm" [yearValues]="years" [(ngModel)]="orderData.dateTime" (ngModelChange)="timeChange()"></ion-datetime>
             </ion-item>
         </ion-list>
 

@@ -5,6 +5,7 @@ import { MyMapPage } from '../my-map/my-map';
 import { ShowRoutePage } from  '../show-route/show-route';
 import { OrderDataServiceProvider } from '../../providers/order-data-service/order-data-service';
 import * as $ from 'jquery';
+import moment from 'moment';
 
 declare var ymaps: any;
 
@@ -17,7 +18,7 @@ export class MainPage {
   pet: any;
   toLoc: any;
   orderData: any;
-  orderDate: String = new Date().toISOString();
+  years: string = '';
   price: string = '';
   distance: string = '';
   dopVisible: boolean = false;
@@ -51,14 +52,21 @@ export class MainPage {
     private orderData1: OrderDataServiceProvider,
     public events: Events,
     public toast: ToastController) {
-
+ 
     let _this = this;
   	this.pet = "datatime";
     this.orderData = this.orderData1;
     this.orderData.clearAll();
+    this.orderData.dateTime= moment(new Date().toISOString()).locale('es').format();
   	this.orderData.choosenTarif = this.tarifs.indexOf(this.tarifs.find((item) => { 
   		return item.name == "Эконом"
   	}));
+
+    let curYear = new Date().getFullYear(), arrYears: Array<string> = [];
+    for (var i = curYear; i < curYear + 3; ++i) {
+      arrYears.push(i + '');
+    }
+    this.years = arrYears.join(',');
 
     this.events.subscribe('route:change', () => {
       _this.orderData.distance = undefined;
@@ -213,5 +221,9 @@ export class MainPage {
 
   triggerDopParamsVisibility() {
     this.dopVisible = !this.dopVisible;
+  }
+
+  timeChange() {
+    this.orderData.isTimeNow = false;
   }
 }

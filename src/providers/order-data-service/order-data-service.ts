@@ -14,6 +14,7 @@ export class OrderDataServiceProvider {
   choosenMoneyType: string = 'nal';
   choosenTarif: number;
   isTimeNow: boolean = true;
+  dateTime: string;
 
   readonly crimeaNord = 46.240364;
   readonly crimeaSouth = 44.377650;
