@@ -6,7 +6,14 @@ export class OrderDataServiceProvider {
   yandexRoute: any;
   distance: number;
   price: number;
-
+  isChildren: boolean;
+  inBaggaje: boolean;
+  isAnimal: boolean;
+  isGory: boolean;
+  message: string = '';
+  choosenMoneyType: string = 'nal';
+  choosenTarif: number;
+  isTimeNow: boolean = true;
 
   readonly crimeaNord = 46.240364;
   readonly crimeaSouth = 44.377650;
@@ -54,5 +61,13 @@ export class OrderDataServiceProvider {
   	this.yandexRoute = undefined;
   	this.distance = undefined;
   	this.price = undefined;
+  	this.isChildren = false;
+  	this.inBaggaje = false;
+  	this.isAnimal = false;
+  	this.isGory = false;
+  	this.message = '';
+  	this.choosenMoneyType = 'nal';
+  	this.choosenTarif = 0;
+  	this.isTimeNow = true;
   }
 }

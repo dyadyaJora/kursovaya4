@@ -20,7 +20,7 @@ export class MainPage {
   orderDate: String = new Date().toISOString();
   price: string = '';
   distance: string = '';
-  choosenTarif: number;
+  dopVisible: boolean = false;
   choosenMoneyType: String = "nal";
   tarifs: Array<any> = [
   	{
@@ -56,7 +56,7 @@ export class MainPage {
   	this.pet = "datatime";
     this.orderData = this.orderData1;
     this.orderData.clearAll();
-  	this.choosenTarif = this.tarifs.indexOf(this.tarifs.find((item) => { 
+  	this.orderData.choosenTarif = this.tarifs.indexOf(this.tarifs.find((item) => { 
   		return item.name == "Эконом"
   	}));
 
@@ -85,6 +85,13 @@ export class MainPage {
 
       t.present();
     });
+  }
+
+  destructor() {
+    this.events.unsubscribe('route:change');
+    this.events.unsubscribe('route:loading');
+    this.events.unsubscribe('route:way');
+    this.events.unsubscribe('route:error');
   }
 
   ionViewDidLoad() {
@@ -154,7 +161,7 @@ export class MainPage {
         //_this.myMap.geoObjects.add(route);
         this.orderData.distance = route.getActiveRoute().properties._data.distance.value;
         this.orderData.yandexRoute = route;
-        this.orderData.price = Math.round(this.orderData.distance/1000 * this.tarifs[this.choosenTarif].price);
+        this.orderData.price = this._calcPrice();
         this.events.publish('route:way', route);
         // ANGULAR ISSUE: no binding in async 
         $('.hide-help-button').click(); // == helpUpdateData()
@@ -192,6 +199,19 @@ export class MainPage {
   helpUpdateData() {
     this.price = this.orderData.price? this.orderData.price + ' р.' : '     ';
     this.distance = this.orderData.distance? (this.orderData.distance/1000).toFixed(2) + ' км' : '';
-    console.log(this.price);
+  }
+
+  _calcPrice():number {
+    return Math.round(this.orderData.distance/1000 * this.tarifs[this.orderData.choosenTarif].price);
+  }
+
+  recalcPrice(e: any) {
+    this.orderData.price = this._calcPrice();
+    this.helpUpdateData();
+    console.log(e);
+  }
+
+  triggerDopParamsVisibility() {
+    this.dopVisible = !this.dopVisible;
   }
 }

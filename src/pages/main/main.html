@@ -59,7 +59,7 @@
     <div class="order-opt">
         <ion-segment [(ngModel)]="pet">
             <ion-segment-button value="datatime">
-            Время подачи
+                Время подачи
             </ion-segment-button>
             <ion-segment-button value="tarif">
                 Тариф
@@ -75,7 +75,7 @@
             <ion-item>
                 <ion-icon name="md-time" item-start></ion-icon>
                 <ion-label>Сейчас</ion-label>
-                <ion-toggle checked="true"></ion-toggle>
+                <ion-toggle [(ngModel)]="orderData.isTimeNow"></ion-toggle>
             </ion-item>
             <ion-item>
                 <ion-icon name="md-calendar" item-start></ion-icon>
@@ -84,7 +84,7 @@
             </ion-item>
         </ion-list>
 
-        <ion-list radio-group [(ngModel)]="choosenTarif" *ngSwitchCase="'tarif'">
+        <ion-list radio-group [(ngModel)]="orderData.choosenTarif" *ngSwitchCase="'tarif'" (ionChange)="recalcPrice($event)">
             <ion-list-header>
                 Выберите тариф (i)
             </ion-list-header>
@@ -96,7 +96,7 @@
 
         </ion-list>
 
-        <ion-list radio-group [(ngModel)]="choosenMoneyType" *ngSwitchCase="'money'">
+        <ion-list radio-group [(ngModel)]="orderData.choosenMoneyType" *ngSwitchCase="'money'">
             <ion-list-header>
                 Выберите тип оплаты (i)
             </ion-list-header>
@@ -111,6 +111,41 @@
                 <ion-radio value="beznal"></ion-radio>
             </ion-item>
         </ion-list>
+    </ion-card>
+
+    <ion-card class="order-dop-params">
+      <ion-card-header class="order-dop-params__header">
+        <button ion-button clear color="primary" (click)="triggerDopParamsVisibility()">
+            Дополнительные параметры  <ion-icon name="ios-arrow-down" class="order-dop-params__header-arrow" [ngClass]="{'order-dop-params__header-arrow_active': dopVisible}"></ion-icon>
+        </button>
+      </ion-card-header>
+      <ion-list *ngIf="dopVisible">
+
+      <ion-item>
+        <ion-label>Детское кресло</ion-label>
+        <ion-checkbox [(ngModel)]="orderData.isChildren"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Багаж</ion-label>
+        <ion-checkbox [(ngModel)]="orderData.inBaggaje"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Перевозка животных</ion-label>
+        <ion-checkbox [(ngModel)]="orderData.isAnimal"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>В горы</ion-label>
+        <ion-checkbox [(ngModel)]="orderData.isGory"></ion-checkbox>
+      </ion-item>
+
+      <ion-item class="order-dop-params__message">
+        <ion-textarea placeholder="Сообщение диспетчеру" [(ngModel)]="orderData.message"></ion-textarea>
+      </ion-item>
+
+</ion-list>
     </ion-card>
 
     <button class="order-btn" ion-button icon-left color="secondary">

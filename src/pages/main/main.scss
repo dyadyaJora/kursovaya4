@@ -1,4 +1,8 @@
 page-main {
+	.scroll-content {
+	    background: $backgroundClr;
+	}
+
 	.order-loc__from-icon {
 		flex-grow: 1;
 		color: #ff9800;
@@ -57,7 +61,7 @@ page-main {
 	.showmap-btn {
 		text-transform: none;
 		font-weight: 600;
-		
+
 	    height: auto;
 	    padding-top: 10px;
 	    padding-bottom: 10px;
@@ -107,5 +111,32 @@ page-main {
 
 	.order-btn__price {
 	    text-transform: none;
+	}
+
+	ion-card.order-dop-params {
+		margin-top: 20px;
+	}
+
+	.order-dop-params__message {
+		margin: 10px;
+	}
+
+	.order-dop-params__header {
+		padding: 0;
+	}
+	.order-dop-params__header button {
+		width: 100%;
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+
+	.order-dop-params__header-arrow {
+		margin-left: 10px;
+	    transition: 0.5s transform 0s cubic-bezier(0.22, 0.61, 0.36, 1);
+	}
+
+	.order-dop-params__header-arrow_active {
+		transform: rotateZ(180deg);
+
 	}
 }
