@@ -27,6 +27,8 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
 import { SupportPage } from '../pages/support/support';
 import { MainPage } from '../pages/main/main';
 import { ShowRoutePage } from '../pages/show-route/show-route';
+import { OrdersPage } from '../pages/orders/orders';
+import { SettingsPage } from '../pages/settings/settings';
 
 
 import { MyMapPage } from '../pages/my-map/my-map';
@@ -55,7 +57,9 @@ import { OrderDataServiceProvider } from '../providers/order-data-service/order-
     SupportPage,
     MainPage,
     MyMapPage,
-    ShowRoutePage
+    ShowRoutePage,
+    OrdersPage,
+    SettingsPage
   ],
   imports: [
     BrowserModule,
@@ -67,9 +71,9 @@ import { OrderDataServiceProvider } from '../providers/order-data-service/order-
         { component: SchedulePage, name: 'Schedule', segment: 'schedule' },
         { component: SessionDetailPage, name: 'SessionDetail', segment: 'sessionDetail/:sessionId' },
         { component: ScheduleFilterPage, name: 'ScheduleFilter', segment: 'scheduleFilter' },
-        { component: SpeakerListPage, name: 'SpeakerList', segment: 'speakerList' },
         { component: SpeakerDetailPage, name: 'SpeakerDetail', segment: 'speakerDetail/:speakerId' },
-        { component: MapPage, name: 'Map', segment: 'map' },
+        { component: OrdersPage, name: 'Orders', segment: 'orders' },
+        { component: SettingsPage, name: 'Settings', segment: 'settings' },
         { component: AboutPage, name: 'About', segment: 'about' },
         { component: TutorialPage, name: 'Tutorial', segment: 'tutorial' },
         { component: SupportPage, name: 'SupportPage', segment: 'support' },
@@ -99,7 +103,9 @@ import { OrderDataServiceProvider } from '../providers/order-data-service/order-
     SupportPage,
     MainPage,
     MyMapPage,
-    ShowRoutePage
+    ShowRoutePage,
+    OrdersPage,
+    SettingsPage
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

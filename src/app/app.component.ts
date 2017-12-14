@@ -8,11 +8,11 @@ import { Storage } from '@ionic/storage';
 import { AboutPage } from '../pages/about/about';
 import { AccountPage } from '../pages/account/account';
 import { LoginPage } from '../pages/login/login';
-import { MapPage } from '../pages/map/map';
+import { SettingsPage } from '../pages/settings/settings';
 import { SignupPage } from '../pages/signup/signup';
 import { TabsPage } from '../pages/tabs-page/tabs-page';
 import { TutorialPage } from '../pages/tutorial/tutorial';
-import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
+import { OrdersPage } from '../pages/orders/orders';
 import { SupportPage } from '../pages/support/support';
 import { MainPage } from '../pages/main/main';
 
@@ -43,19 +43,19 @@ export class ConferenceApp {
   // the login page disables the left menu
   appPages: PageInterface[] = [
     { title: 'Главная', name: 'TabsPage', component: TabsPage, tabComponent: MainPage, index: 0, icon: 'home' },
-    { title: 'Speakers', name: 'TabsPage', component: TabsPage, tabComponent: SpeakerListPage, index: 1, icon: 'contacts' },
-    { title: 'Map', name: 'TabsPage', component: TabsPage, tabComponent: MapPage, index: 2, icon: 'map' },
-    { title: 'About', name: 'TabsPage', component: TabsPage, tabComponent: AboutPage, index: 3, icon: 'information-circle' }
+    { title: 'Мои заказы', name: 'TabsPage', component: TabsPage, tabComponent: OrdersPage, index: 1, icon: 'list-box' },
+    { title: 'Параметры', name: 'TabsPage', component: TabsPage, tabComponent: SettingsPage, index: 2, icon: 'settings' },
+    { title: 'Инфо', name: 'TabsPage', component: TabsPage, tabComponent: AboutPage, index: 3, icon: 'information-circle' }
   ];
   loggedInPages: PageInterface[] = [
-    { title: 'Account', name: 'AccountPage', component: AccountPage, icon: 'person' },
-    { title: 'Support', name: 'SupportPage', component: SupportPage, icon: 'help' },
-    { title: 'Logout', name: 'TabsPage', component: TabsPage, icon: 'log-out', logsOut: true }
+    { title: 'Профиль', name: 'AccountPage', component: AccountPage, icon: 'person' },
+    { title: 'Поддержка', name: 'SupportPage', component: SupportPage, icon: 'help' },
+    { title: 'Выйти', name: 'TabsPage', component: TabsPage, icon: 'log-out', logsOut: true }
   ];
   loggedOutPages: PageInterface[] = [
-    { title: 'Login', name: 'LoginPage', component: LoginPage, icon: 'log-in' },
-    { title: 'Support', name: 'SupportPage', component: SupportPage, icon: 'help' },
-    { title: 'Signup', name: 'SignupPage', component: SignupPage, icon: 'person-add' }
+    { title: 'Войти', name: 'LoginPage', component: LoginPage, icon: 'log-in' },
+    { title: 'Поддержка', name: 'SupportPage', component: SupportPage, icon: 'help' },
+    { title: 'Регистрация', name: 'SignupPage', component: SignupPage, icon: 'person-add' }
   ];
   rootPage: any;
 
