@@ -119,7 +119,7 @@ export class MainPage {
   }
 
   openFromMap(e: any) {
-    if (e.toElement.className.indexOf('order-loc__actions-close') !== -1 || e.toElement.className.indexOf('order-loc__actions-clear') !== -1)
+    if (e.currentTarget.className.indexOf('order-loc__actions-close') !== -1 || e.currentTarget.className.indexOf('order-loc__actions-clear') !== -1)
       return; 
 
     this.navCtrl.push(MyMapPage, {
@@ -130,7 +130,7 @@ export class MainPage {
   }
 
   openToMap(e:any, ind: number) {
-    if (e.toElement.className.indexOf('order-loc__actions-close') !== -1 || e.toElement.className.indexOf('order-loc__actions-clear') !== -1)
+    if (e.currentTarget.className.indexOf('order-loc__actions-close') !== -1 || e.currentTarget.className.indexOf('order-loc__actions-clear') !== -1)
       return; 
     console.log(ind);
     this.navCtrl.push(MyMapPage, {

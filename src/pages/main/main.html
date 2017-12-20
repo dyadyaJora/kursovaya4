@@ -17,7 +17,7 @@
 
 <ion-content>
     <div class="order-loc">
-        <ion-card class="order-loc__item" (click)=openFromMap($event)> 
+        <ion-card class="order-loc__item" (click)=openFromMap($event) tappable> 
             <ion-card-header class="order-loc__item-head">
                 <ion-icon name="md-locate" class="order-loc__icon order-loc__from-icon"></ion-icon>
                 <span class="order-loc__item-head-text">Откуда</span>
@@ -29,7 +29,7 @@
             </ion-card-header>
             <ion-card-content *ngIf=orderData.fromAddress>{{ orderData.fromAddress }} <div class="order-loc__lat-lon">lat:&nbsp;{{orderData.fromLoc.lat}},&nbsp;lon:&nbsp;{{ orderData.fromLoc.lon }}</div></ion-card-content>
         </ion-card>
-        <ion-card *ngFor="let point of orderData.roadAddresses;let i=index; " class="order-loc__item" (click)=openToMap($event,i)>
+        <ion-card *ngFor="let point of orderData.roadAddresses;let i=index; " class="order-loc__item" (click)=openToMap($event,i) tappable>
             <ion-card-header  class="order-loc__item-head">
                 <ion-icon name="md-pin" class="order-loc__icon order-loc__to-icon"></ion-icon>
                 <span class="order-loc__item-head-text">Куда</span>
