@@ -5,6 +5,7 @@ import { NavController, ToastController } from 'ionic-angular';
 import { AuthService } from 'ng2-ui-auth';
 import {Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
+import { Storage } from '@ionic/storage';
 
 import { UserData } from '../../providers/user-data';
 
@@ -22,7 +23,13 @@ export class LoginPage {
   login: UserOptions = { username: '', password: '' };
   submitted = false;
 
-  constructor(public navCtrl: NavController, public userData: UserData, public auth: AuthService, public toast: ToastController) { }
+  constructor(
+    public navCtrl: NavController,
+    public userData: UserData,
+    public auth: AuthService,
+    public toast: ToastController,
+    public storage: Storage
+  ) { }
 
   onLogin(form: NgForm) {
     this.submitted = true;
@@ -41,21 +48,19 @@ export class LoginPage {
 
     this.auth.authenticate(provider)
       .map((resp: Response) => {
-        return resp;//.json();
+        return resp;
       })
-      .subscribe(user => {
-        console.log(user);
-        //make login
+      .subscribe((user : any) => {
+        this.storage.set('bearer_token', user.token); // ng2-ui-auth_token тоже есть
       },
-      err =>  {
-        console.log('Sehr schlecht', err);
+      () =>  {
         let t = this.toast.create({
           message: 'Ошибка авторизации',
           duration: 3000,
           position: 'bottom'
         });
 
-      t.present();
+        t.present();
       }
       )
   }
