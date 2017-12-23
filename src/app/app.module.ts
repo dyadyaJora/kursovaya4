@@ -37,6 +37,8 @@ import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import { OrderDataServiceProvider } from '../providers/order-data-service/order-data-service';
 
+import {Ng2UiAuthModule} from 'ng2-ui-auth';
+const FACEBOOK_CLIENT_ID = '133793767362782';
 
 @NgModule({
   declarations: [
@@ -82,7 +84,14 @@ import { OrderDataServiceProvider } from '../providers/order-data-service/order-
         { component: SignupPage, name: 'SignupPage', segment: 'signup' }
       ]
     }),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    Ng2UiAuthModule.forRoot({providers: {
+        facebook: {
+            clientId: FACEBOOK_CLIENT_ID,
+            url: '/api/auth/facebook',
+            redirectUri: 'https://localhost/api/auth/facebook'
+        }
+    }})
   ],
   bootstrap: [IonicApp],
   entryComponents: [

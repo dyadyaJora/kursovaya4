@@ -7,11 +7,14 @@
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
+    <allow-intent href="ms-appx-web://*/*" />
     <allow-intent href="tel:*" />
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <allow-navigation href="http://*/*" />
+    <allow-navigation href="https://*/*" />
+    <allow-navigation href="ms-appx-web://*/*" />
     <allow-navigation href="tel:*" />
     <allow-navigation href="mailto:*" />
     <platform name="android">

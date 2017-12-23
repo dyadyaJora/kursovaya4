@@ -4,5 +4,20 @@
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "proxies": [
+    {
+      "path": "/test",
+      "proxyUrl": "http://localhost:3001/test"
+    },
+    {
+      "path": "/users",
+      "proxyUrl": "http://localhost:3001/users"
+    },
+    {
+      "path": "/fb",
+      "proxyUrl": "https://localhost/api/auth/facebook",
+      "rejectUnauthorized": false
+    }
+  ]
 }
