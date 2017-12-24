@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events, ToastController } from 'ionic-angular';
 
 import { MyMapPage } from '../my-map/my-map';
@@ -23,6 +23,7 @@ export class MainPage {
   distance: string = '';
   dopVisible: boolean = false;
   choosenMoneyType: String = "nal";
+  zone: NgZone = new NgZone({enableLongStackTrace: false});
   tarifs: Array<any> = [
   	{
   		name: "Эконом",
@@ -171,13 +172,18 @@ export class MainPage {
         this.orderData.yandexRoute = route;
         this.orderData.price = this._calcPrice();
         this.events.publish('route:way', route);
-        // ANGULAR ISSUE: no binding in async 
-        $('.hide-help-button').click(); // == helpUpdateData()
+        // (Complete) ANGULAR ISSUE: no binding in async 
+        //$('.hide-help-button').click(); // == helpUpdateData()
+        this.zone.run(() => {
+          this.helpUpdateData();
+        });
       })
       .catch( err => {
         console.log(err, 'error');
         this.events.publish('route:error', err.message);
-        $('.hide-help-button').click(); // == helpUpdateData()
+        this.zone.run(() => {
+          this.helpUpdateData();
+        });
       });
     } else {
       this.helpUpdateData();
