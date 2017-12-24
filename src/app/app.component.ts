@@ -16,8 +16,8 @@ import { OrdersPage } from '../pages/orders/orders';
 import { SupportPage } from '../pages/support/support';
 import { MainPage } from '../pages/main/main';
 
-import { ConferenceData } from '../providers/conference-data';
-import { UserData } from '../providers/user-data';
+import { CurrentUserServiceProvider } from '../providers/current-user-service/current-user-service';
+
 
 export interface PageInterface {
   title: string;
@@ -61,10 +61,9 @@ export class ConferenceApp {
 
   constructor(
     public events: Events,
-    public userData: UserData,
+    public currUserData: CurrentUserServiceProvider,
     public menu: MenuController,
     public platform: Platform,
-    public confData: ConferenceData,
     public storage: Storage,
     public splashScreen: SplashScreen
   ) {
@@ -80,11 +79,8 @@ export class ConferenceApp {
         this.platformReady()
       });
 
-    // load the conference data
-    confData.load();
-
     // decide which menu items should be hidden by current login status stored in local storage
-    this.userData.hasLoggedIn().then((hasLoggedIn) => {
+    this.currUserData.isLoggedIn().then((hasLoggedIn) => {
       this.enableMenu(hasLoggedIn === true);
     });
     this.enableMenu(true);
@@ -116,7 +112,7 @@ export class ConferenceApp {
 
     if (page.logsOut === true) {
       // Give the menu time to close before changing to logged out
-      this.userData.logout();
+      this.currUserData.logout();
     }
   }
 

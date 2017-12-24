@@ -36,13 +36,10 @@
 
 		<ion-row responsive-sm>
 			<ion-col>
-				<button ion-button (click)="onLogin(loginForm)" type="submit" block>Login</button>
+				<button ion-button (click)="onLogin('vk')" type="submit" block>VK</button>
 			</ion-col>
 			<ion-col>
 				<button ion-button (click)="externalLogin('facebook')" type="submit" block>FB</button>
-			</ion-col>
-			<ion-col>
-				<button ion-button (click)="onSignup()" color="light" block>Signup</button>
 			</ion-col>
 		</ion-row>
 	</form>

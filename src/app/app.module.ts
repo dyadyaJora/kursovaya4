@@ -15,13 +15,7 @@ import { AboutPage } from '../pages/about/about';
 import { PopoverPage } from '../pages/about-popover/about-popover';
 import { AccountPage } from '../pages/account/account';
 import { LoginPage } from '../pages/login/login';
-import { MapPage } from '../pages/map/map';
-import { SchedulePage } from '../pages/schedule/schedule';
-import { ScheduleFilterPage } from '../pages/schedule-filter/schedule-filter';
-import { SessionDetailPage } from '../pages/session-detail/session-detail';
 import { SignupPage } from '../pages/signup/signup';
-import { SpeakerDetailPage } from '../pages/speaker-detail/speaker-detail';
-import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
 import { TabsPage } from '../pages/tabs-page/tabs-page';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { SupportPage } from '../pages/support/support';
@@ -33,12 +27,12 @@ import { SettingsPage } from '../pages/settings/settings';
 
 import { MyMapPage } from '../pages/my-map/my-map';
 
-import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import { OrderDataServiceProvider } from '../providers/order-data-service/order-data-service';
 
-import {Ng2UiAuthModule} from 'ng2-ui-auth';
+import { Ng2UiAuthModule } from 'ng2-ui-auth';
 import { CurrentUserServiceProvider } from '../providers/current-user-service/current-user-service';
+
 const FACEBOOK_CLIENT_ID = '133793767362782';
 
 @NgModule({
@@ -47,14 +41,8 @@ const FACEBOOK_CLIENT_ID = '133793767362782';
     AboutPage,
     AccountPage,
     LoginPage,
-    MapPage,
     PopoverPage,
-    SchedulePage,
-    ScheduleFilterPage,
-    SessionDetailPage,
     SignupPage,
-    SpeakerDetailPage,
-    SpeakerListPage,
     TabsPage,
     TutorialPage,
     SupportPage,
@@ -71,10 +59,7 @@ const FACEBOOK_CLIENT_ID = '133793767362782';
       links: [
         { component: TabsPage, name: 'TabsPage', segment: 'tabs-page' },
         { component: MainPage, name: 'MainPage', segment: 'main' },
-        { component: SchedulePage, name: 'Schedule', segment: 'schedule' },
-        { component: SessionDetailPage, name: 'SessionDetail', segment: 'sessionDetail/:sessionId' },
-        { component: ScheduleFilterPage, name: 'ScheduleFilter', segment: 'scheduleFilter' },
-        { component: SpeakerDetailPage, name: 'SpeakerDetail', segment: 'speakerDetail/:speakerId' },
+        //{ component: SpeakerDetailPage, name: 'SpeakerDetail', segment: 'speakerDetail/:speakerId' },
         { component: OrdersPage, name: 'Orders', segment: 'orders' },
         { component: SettingsPage, name: 'Settings', segment: 'settings' },
         { component: AboutPage, name: 'About', segment: 'about' },
@@ -100,14 +85,8 @@ const FACEBOOK_CLIENT_ID = '133793767362782';
     AboutPage,
     AccountPage,
     LoginPage,
-    MapPage,
     PopoverPage,
-    SchedulePage,
-    ScheduleFilterPage,
-    SessionDetailPage,
     SignupPage,
-    SpeakerDetailPage,
-    SpeakerListPage,
     TabsPage,
     TutorialPage,
     SupportPage,
@@ -119,7 +98,6 @@ const FACEBOOK_CLIENT_ID = '133793767362782';
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    ConferenceData,
     UserData,
     InAppBrowser,
     SplashScreen,
