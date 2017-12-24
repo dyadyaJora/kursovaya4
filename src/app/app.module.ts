@@ -38,6 +38,7 @@ import { UserData } from '../providers/user-data';
 import { OrderDataServiceProvider } from '../providers/order-data-service/order-data-service';
 
 import {Ng2UiAuthModule} from 'ng2-ui-auth';
+import { CurrentUserServiceProvider } from '../providers/current-user-service/current-user-service';
 const FACEBOOK_CLIENT_ID = '133793767362782';
 
 @NgModule({
@@ -122,7 +123,8 @@ const FACEBOOK_CLIENT_ID = '133793767362782';
     UserData,
     InAppBrowser,
     SplashScreen,
-    OrderDataServiceProvider
+    OrderDataServiceProvider,
+    CurrentUserServiceProvider
   ]
 })
 export class AppModule { }
