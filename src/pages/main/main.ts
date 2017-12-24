@@ -4,7 +4,7 @@ import { IonicPage, NavController, NavParams, Events, ToastController } from 'io
 import { MyMapPage } from '../my-map/my-map';
 import { ShowRoutePage } from  '../show-route/show-route';
 import { OrderDataServiceProvider } from '../../providers/order-data-service/order-data-service';
-import * as $ from 'jquery';
+//import * as $ from 'jquery';
 import moment from 'moment';
 
 declare var ymaps: any;
