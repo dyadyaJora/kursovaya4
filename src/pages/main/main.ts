@@ -1,9 +1,10 @@
 import { Component, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, ToastController, LoadingController, AlertController } from 'ionic-angular';
 
 import { MyMapPage } from '../my-map/my-map';
 import { ShowRoutePage } from  '../show-route/show-route';
 import { OrderDataServiceProvider } from '../../providers/order-data-service/order-data-service';
+import { CurrentUserServiceProvider } from '../../providers/current-user-service/current-user-service';
 //import * as $ from 'jquery';
 import moment from 'moment';
 
@@ -51,8 +52,11 @@ export class MainPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private orderData1: OrderDataServiceProvider,
+    public currUserData: CurrentUserServiceProvider,
     public events: Events,
-    public toast: ToastController) {
+    public toast: ToastController,
+    public load: LoadingController,
+    public alert: AlertController) {
  
     let _this = this;
   	this.pet = "datatime";
@@ -231,5 +235,44 @@ export class MainPage {
 
   timeChange() {
     this.orderData.isTimeNow = false;
+  }
+
+  makeOrder() {
+    this.currUserData.isLoggedIn().then(flag => {
+      if(!flag) 
+        return;
+
+      let validateStr = this.orderData.checkData();
+
+      if (validateStr) {
+        let t = this.toast.create({
+          message: 'Ошибка валидации! ' + validateStr,
+          duration: 3000,
+          position: 'bottom'
+        });
+
+        t.present();
+        return;
+      }
+
+      let l = this.load.create({
+        content: 'Идет отправка заказа...'
+      });
+
+      l.present();
+      this.orderData.sendOrder(this.currUserData.token).subscribe(() => {
+        this.clearAll();
+        l.dismiss();
+
+        let a = this.alert.create({
+          title: 'Заказ успешно отправлен!',
+          subTitle: 'Благодарим вас за использование наших авиалиний... ',
+          buttons: ['OK']
+        });
+        a.present();
+      }, err => {
+        console.log(err, 'Все очень плохо');
+      });
+    });
   }
 }

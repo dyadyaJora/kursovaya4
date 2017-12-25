@@ -1,15 +1,47 @@
 <ion-header>
 
-  <ion-navbar>
-    <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Мои заказы</ion-title>
-  </ion-navbar>
+	<ion-navbar>
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>Мои заказы</ion-title>
+	</ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-	//список заказов
+	<div *ngIf="!isLogin">Необходимо войти в систему, чтобы просматривать страницу</div>
+	<div *ngIf="isLogin">
+		<span *ngIf="!orders.length">Вы еще не создали ни одного заказа</span>
+
+		<ion-card *ngFor= "let order of orders; let i=index;">
+			<ion-card-content>
+				<ion-card-title>
+					Заказ №{{i+1}}
+				</ion-card-title>
+				<p>
+					{{order.fromAddress}} {{ printRoadAddresses(order.roadAddresses) }}
+				</p>
+				<p>Цена: <b>{{order.price}} руб.</b></p>
+			</ion-card-content>
+			<ion-row> 
+				<ion-col center text-center>
+				<button ion-button icon-left clear small color="secondary">
+						<ion-icon name="md-star-outline"></ion-icon>
+						<div>{{ (+order.distance/1000).toFixed(2) }} км</div>
+					</button>
+				</ion-col>
+				<ion-col center text-center>
+					<button ion-button icon-left clear small color="secondary">
+						<ion-icon name="md-eye"></ion-icon>
+						<div>{{ order.status }}</div>
+					</button>
+				</ion-col>
+				<ion-col center text-center>
+					<button ion-button clear small class="place-card__agent" color="secondary">@drivername</button>
+				</ion-col>
+			</ion-row>
+		</ion-card>
+	</div>
 </ion-content>

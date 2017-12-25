@@ -1,4 +1,8 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class OrderDataServiceProvider {
   fromLoc: any;
   fromAddress: string = '';
@@ -22,7 +26,9 @@ export class OrderDataServiceProvider {
   readonly crimeaEast = 36.651591;
 
 
-  constructor() {
+  constructor(
+    public http: HttpClient
+  ) {
     console.log('Hello OrderDataServiceProvider Provider');
   }
 
@@ -70,5 +76,49 @@ export class OrderDataServiceProvider {
   	this.choosenMoneyType = 'nal';
   	this.choosenTarif = 0;
   	this.isTimeNow = true;
+  }
+
+  checkData(): string {
+    let res = '';
+
+    if (!this.fromAddress) {
+      res += 'Отсутствует адресс отправления\n';
+    }
+
+    let toLocs = this.roadAddresses.every(val => {
+      return !!val.addr;
+    });
+
+    if (!toLocs) {
+      res += 'Отсутствует адресс(а) путевых точек\n';
+    }
+
+    if (!this.distance || !this.price) {
+      res += 'Невозможно выполнить рассчет(нет данных о маршруте)\n';
+    }
+
+    return res;
+  }
+
+  sendOrder(token): Observable<any> {
+    let headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    let data:any = {};
+
+    data.fromLoc = this.fromLoc;
+    data.fromAddress = this.fromAddress;
+    data.roadAddresses = this.roadAddresses;
+    data.distance = this.distance;
+    data.price = this.price;
+    data.isChildren = this.isChildren;
+    data.inBaggaje = this.inBaggaje;
+    data.isAnimal = this.isAnimal;
+    data.isGory = this.isGory;
+    data.message = this.message;
+    data.choosenMoneyType = this.choosenMoneyType;
+    data.choosenTarif = this.choosenTarif;
+    data.isTimeNow = this.isTimeNow;
+    data.dateTime = this.dateTime;
+
+    return this.http.post('/order', data, { headers: headers });
   }
 }

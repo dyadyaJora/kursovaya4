@@ -1,6 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { Events } from 'ionic-angular';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class CurrentUserServiceProvider {
@@ -8,6 +10,7 @@ export class CurrentUserServiceProvider {
     id: string = '';
     avatar: string = '';
     nickname: string = '';
+    token: string = '';
     HAS_LOGGED_IN = 'hasLoggedIn';
     HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
     BEARER_TOKEN = 'bearerToken';
@@ -15,7 +18,8 @@ export class CurrentUserServiceProvider {
 
     constructor(
         public http: HttpClient,
-        public storage: Storage
+        public storage: Storage,
+        public events: Events
     ) { };
 
     login(user: any) {
@@ -26,6 +30,8 @@ export class CurrentUserServiceProvider {
         this.id = user.fbId || user.vkId; // || ...
         this.avatar = user.avatar;
         this.nickname = user.nickname;
+        this.token = user.token;
+        this.events.publish('user:login');
     };
 
     logout() {
@@ -36,6 +42,8 @@ export class CurrentUserServiceProvider {
         this.id = '';
         this.avatar = '';
         this.nickname = '';
+        this.token = '';
+        this.events.publish('user:logout');
     };
 
     isLoggedIn(): Promise<boolean> {
@@ -50,5 +58,22 @@ export class CurrentUserServiceProvider {
         });
     };
 
+    getMe(token: string): any {
+        let headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+        return this.http.get('/me', { headers: headers }).subscribe(user => {
+            if(user) 
+                this.login(user);
+            else 
+                this.logout();
+        }, err => {
+            this.logout();
+            console.log(err);
+        });
+    };
+
+    getMyOrders(token: string): Observable<any> {
+        let headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+        return this.http.get('/order/allmy', { headers: headers });
+    };
 
 }

@@ -11,8 +11,12 @@
       "proxyUrl": "http://localhost:3001/test"
     },
     {
-      "path": "/users",
-      "proxyUrl": "http://localhost:3001/users"
+      "path": "/me",
+      "proxyUrl": "https://localhost/me"
+    },
+    {
+      "path": "/order",
+      "proxyUrl": "https://localhost/order"
     },
     {
       "path": "/fb",

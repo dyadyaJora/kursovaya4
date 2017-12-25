@@ -148,10 +148,9 @@
 </ion-list>
     </ion-card>
 
-    <button class="order-btn" ion-button icon-left color="secondary">
+    <button class="order-btn" ion-button icon-left color="secondary" (click)=makeOrder()>
       <ion-icon name="home"></ion-icon>
       Заказать&nbsp;<div class="order-btn__price">{{price}}</div>
     </button>
-    <button ion-button class="hide-help-button" (click)=helpUpdateData()>test</button>
 
 </ion-content>

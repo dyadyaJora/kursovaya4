@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { AlertController, NavController } from 'ionic-angular';
 
 import { UserData } from '../../providers/user-data';
+import { CurrentUserServiceProvider } from '../../providers/current-user-service/current-user-service';
 
 
 @Component({
@@ -12,8 +13,13 @@ import { UserData } from '../../providers/user-data';
 export class AccountPage {
   username: string;
 
-  constructor(public alertCtrl: AlertController, public nav: NavController, public userData: UserData) {
-
+  constructor(
+    public alertCtrl: AlertController,
+    public nav: NavController,
+    public userData: UserData,
+    public currUser: CurrentUserServiceProvider
+  ) {
+    console.log(this.currUser.nickname);
   }
 
   ngAfterViewInit() {
