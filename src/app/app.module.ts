@@ -32,7 +32,8 @@ import { OrderDataServiceProvider } from '../providers/order-data-service/order-
 
 import { Ng2UiAuthModule } from 'ng2-ui-auth';
 import { CurrentUserServiceProvider } from '../providers/current-user-service/current-user-service';
-
+//import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+//const config: SocketIoConfig = { url: 'https://localhost', options: {} };
 const FACEBOOK_CLIENT_ID = '133793767362782';
 
 @NgModule({
@@ -77,7 +78,8 @@ const FACEBOOK_CLIENT_ID = '133793767362782';
             url: '/api/auth/facebook',
             redirectUri: 'https://localhost/api/auth/facebook'
         }
-    }})
+    }}),
+    //SocketIoModule.forRoot(config)
   ],
   bootstrap: [IonicApp],
   entryComponents: [

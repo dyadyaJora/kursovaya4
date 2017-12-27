@@ -32,6 +32,9 @@ export class OrdersPage {
             console.log('aaaa logout');
             this.onLogout();
         });
+        this.events.subscribe('order:new', (ord) => {
+            this.orders.push(ord);
+        });
     }
 
     ionViewDidLoad() {

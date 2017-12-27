@@ -260,9 +260,10 @@ export class MainPage {
       });
 
       l.present();
-      this.orderData.sendOrder(this.currUserData.token).subscribe(() => {
+      this.orderData.sendOrder(this.currUserData.token).subscribe((newOrder) => {
         this.clearAll();
         l.dismiss();
+        this.events.publish('order:new', newOrder);
 
         let a = this.alert.create({
           title: 'Заказ успешно отправлен!',
